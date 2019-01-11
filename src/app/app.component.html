@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container  [ngStyle]="{'background-color': '#E6EAEF' }">
+    <mat-sidenav #sidenav  mode="side">
+        <app-sidenav-list (closeSideNavigation)="sidenav.close()"></app-sidenav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-header (SideNavigationToggle)="sidenav.toggle()"></app-header>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>

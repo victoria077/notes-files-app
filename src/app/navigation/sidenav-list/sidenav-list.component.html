@@ -1,0 +1,14 @@
+<mat-nav-list class="sidenav-list">
+    <a  mat-list-item routerLink="/files" (click)="onToggleClose()">
+      <mat-icon>input</mat-icon>
+      <span>Files</span>
+    </a>
+    <a  mat-list-item routerLink="/notes" (click)="onToggleClose()">
+      <mat-icon>input</mat-icon>
+      <span>Notes</span>
+    </a>
+    <a mat-list-item routerLink="/" (click)="onToggleClose()">
+      <mat-icon>account_circle</mat-icon>
+      <span>SignOut</span>
+    </a>
+  </mat-nav-list>

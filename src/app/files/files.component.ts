@@ -2,38 +2,49 @@ import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-
 @Component({
   selector: "app-files",
   templateUrl: "./files.component.html",
-  styleUrls: ["./files.component.css"]
+  styleUrls: ["./files.component.scss"]
 })
 export class FilesComponent {
+  files = [];
   fileToUpload: File = null;
+  fileId: string;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-}
+  }
 
-uploadFileToActivity() {
-  this.postFile(this.fileToUpload).subscribe(data => {
-    // do something, if upload success
-    }, error => {
-      console.log(error);
+  uploadFileToActivity() {
+    this.files.push({'files': this.fileId});
+    this.postFile(this.fileToUpload).subscribe(
+      data => {
+        // do something, if upload success
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  postFile(fileToUpload: File): Observable<Object> {
+    const endpoint = "http://localhost:5000/api/Files";
+    const formData: FormData = new FormData();
+    formData.append("files", fileToUpload, fileToUpload.name);
+    return this.http.post(endpoint, formData);
+  }
+
+  deleteFile(index: number){
+    this.files.splice(index, 1);
+  }
+
+  ngOnInit() {
+    this.http.get<any>('http://localhost:5000/api/Files')
+    .subscribe((response) => {
+      this.files = response;
     });
-}
-
-private postFile(fileToUpload: File): Observable<boolean> {
-  const endpoint = 'http://localhost:5000/api/Files';
-  const formData: FormData = new FormData();
-  formData.append('fileKey', fileToUpload, fileToUpload.name);
-  let result:  Observable<boolean> = this.http.post(endpoint, formData).subscribe(() => {}); // подсказка. резултат выражения и его тип будут равны тому что вернет последний вызов в цепочке
-  // конекретно тут, последний вызов это .subscribe(...)
-
-  return result; //<- анализируй что ты должна вернуть, и что по факту возвращаешь. чтоб проверить типы например можешь в переменную заключтиь
-  // вот в тексте ошибки четко написано в чем ошибка, там надо это понять. проаналищировать что ты должна вернуть, а что возвращаешь по факту
-  //красное подчеркивание означает что то что (ты должна != факту)
-}
+  }
 }

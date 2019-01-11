@@ -1,15 +1,33 @@
 <div class="wrapper">
-  <div class="wrapper">
-    <mat-card>
-      <mat-form-field class="example-full-width">
-          <input matInput [(ngModel)]="taskI" placeholder="Note">
-        </mat-form-field>
-        <button mat-raised-button (click)="submit()">Add</button>
+  <div class="wrapper" color="primary">
+    <mat-card color="primary" class="back">
+      <mat-form-field class="example-full-width" color="primary">
+        <input  matInput [(ngModel)]="taskI" placeholder="Note" />
+      </mat-form-field>
+      <button mat-raised-button (click)="submit()" color="primary">Add</button>
     </mat-card>
 
-    <div *ngFor="let task of tasks" class="task-list">
+    <div *ngFor="let task of tasks; let i = index" class="task-list">
       <mat-card class="task-item">
-         {{task.sukaEbanoePole}}
+        {{ task.sukaEbanoePole }}
+        <button mat-icon-button color="warn" (dblclick)="deleteNote(i)">
+          <mat-icon>clear</mat-icon>
+        </button>
       </mat-card>
     </div>
   </div>
+</div>
+
+
+<!-- <mat-sidenav-container class="example-container">
+
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">\
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <p><button mat-button (click)="sidenav.toggle()">
+          <mat-icon>subject</mat-icon>
+      </button></p>
+    </mat-sidenav-content>
+  </mat-sidenav-container> -->

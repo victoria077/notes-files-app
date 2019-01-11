@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+
+$typo: mat-typography-config(
+  $font-family: '"Playfair Display", serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-core($typo);
+
+
+$my-theme-primary: mat-palette($mat-blue-grey, 800);
+$my-theme-accent:  mat-palette($mat-green, A200, A100, A400);
+
+
+$my-theme: mat-light-theme($my-theme-primary, $my-theme-accent);
+
+@include angular-material-theme($my-theme);
