@@ -17,9 +17,9 @@ export class NotesComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   submit() {
-    this.tasks.push( {'sukaEbanoePole' : this.taskI});
+    this.tasks.push( {'Pole' : this.taskI});
 
-    this.http.post('http://localhost:5000/api/Tasks',  {'sukaEbanoePole' : this.taskI} )
+    this.http.post('http://localhost:5000/api/Tasks',  {'Pole' : this.taskI} )
       .subscribe(() => {
       });
   }
